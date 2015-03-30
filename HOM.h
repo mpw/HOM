@@ -6,7 +6,6 @@
 //  Copyright 2009-2014 Marcel Weiher. All rights reserved.
 //
 //  Permission to copy under the BSD open source license.
-//  Permission granted to copy granted specifically to 6wunderkinder
 //
 
 #import <Foundation/Foundation.h>
