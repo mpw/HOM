@@ -48,16 +48,17 @@
 
 -(void)forwardInvocation:(NSInvocation*)anInvocation
 {
+    extern id objc_msgSend( id, SEL , ...)
     [anInvocation setTarget:xxTarget];
     [anInvocation retainArguments];
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    id result=[xxTarget performSelector:xxSelector withObject:anInvocation withObject:xxArg];
-#pragma clang diagnostic pop
     
     if (!xxIsVoid) {
+        id result=objc_msgSend( xxTarget, xxSelector, anInvocation, xxArg);
         [anInvocation setReturnValue:&result];
+    } else {
+        void (*void_send)( id, SEL , ...)  = objc_msgSend;
+        void_send( xxTarget, xxSelector, anInvocation, xxArg);
     }
 }
 
